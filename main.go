@@ -1,10 +1,10 @@
 package main
 
 import (
-	"gin-boilerplate/pkg/config"
-	"gin-boilerplate/pkg/database"
-	"gin-boilerplate/pkg/logger"
-	"gin-boilerplate/pkg/routers"
+	"github.com/akmamun/gin-boilerplate-examples/pkg/config"
+	"github.com/akmamun/gin-boilerplate-examples/pkg/database"
+	"github.com/akmamun/gin-boilerplate-examples/pkg/logger"
+	"github.com/akmamun/gin-boilerplate-examples/pkg/routers"
 	"github.com/spf13/viper"
 )
 

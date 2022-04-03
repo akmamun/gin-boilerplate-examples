@@ -1,4 +1,4 @@
-module gin-boilerplate
+module github.com/akmamun/gin-boilerplate-examples
 
 go 1.17
 

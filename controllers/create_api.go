@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"gin-boilerplate/models"
-	"gin-boilerplate/pkg/logger"
+	"github.com/akmamun/gin-boilerplate-examples/models"
+	"github.com/akmamun/gin-boilerplate-examples/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

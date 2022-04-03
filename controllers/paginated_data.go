@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"gin-boilerplate/models"
-	"gin-boilerplate/pkg/helpers/pagination"
+	"github.com/akmamun/gin-boilerplate-examples/models"
+	"github.com/akmamun/gin-boilerplate-examples/pkg/helpers/pagination"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
