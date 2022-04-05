@@ -2,7 +2,6 @@
 Boilerplate generated from [Gin Boilerplate](https://github.com/akmamun/gin-boilerplate)
 
 ## Table of Contents
-- [Motivation](#motivation)
 - [Configuration Manage](#configuration-manage)
   - [Server Configuration](#server-configuration)
   - [Database Configuration](#database-configuration)
@@ -13,14 +12,10 @@ Boilerplate generated from [Gin Boilerplate](https://github.com/akmamun/gin-boil
 - [Logging](#logging)
 - [Boilerplate Structure](#boilerplate-structure)
 - [Let's Build an API](#lets-build-an-api)
-- [Code Examples](#code-examples)
 - [Useful Commands](#useful-commands)
 - [Container Development Build](#container-development-build)
 - [Container Production Build and Up](#container-production-build-and-up)
 - [Use Packages](#use-packages)
-
-### Motivation
-Write restful API with fast development and developer friendly
 
 ### Configuration Manage
 - Manage from [config.yml](config.yml) file
