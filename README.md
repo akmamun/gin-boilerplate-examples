@@ -224,8 +224,6 @@ func RegisterRoutes(route *gin.Engine, db *gorm.DB) {
 ```
 - Congratulation, your endpoint is ready `0.0.0.0:8000/v1/example/`
 
-### Code Examples
-- [Example](examples) contains sample code of different type of example
 
 ### Useful Commands
 
