@@ -1,5 +1,5 @@
-# Go Boilerplate
-An API boilerplate written in Golang with Gin Framework
+# Go Boilerplate Examples
+Boilerplate generated from [Gin Boilerplate](https://github.com/akmamun/gin-boilerplate)
 
 ## Table of Contents
 - [Motivation](#motivation)
