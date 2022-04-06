@@ -77,46 +77,6 @@ router.Use(middleware.CORSMiddleware())
 - Use [logrus](https://github.com/sirupsen/logrus) - Structured, pluggable logging for Go.
 - `INFO 2022-03-12T00:33:32+03:00 Server is starting at 127.0.0.1:8000`
 
-### Boilerplate Structure
-<pre>├── config.yml
-├── <font color="#3465A4"><b>controllers</b></font>
-│   ├── controller.go
-│   └── example_controller.go
-├── docker-compose-dev.yml
-├── docker-compose-prod.yml
-├── Dockerfile
-├── Dockerfile-dev
-├── go.mod
-├── go.sum
-├── LICENSE
-├── main.go
-├── Makefile
-├── <font color="#3465A4"><b>models</b></font>
-│   └── example_model.go
-├── <font color="#3465A4"><b>pkg</b></font>
-│   ├── <font color="#3465A4"><b>config</b></font>
-│   │   ├── config.go
-│   │   ├── db.go
-│   │   └── server.go
-│   ├── <font color="#3465A4"><b>database</b></font>
-│   │   ├── database.go
-│   │   └── migration.go
-│   ├── <font color="#3465A4"><b>helpers</b></font>
-│   │   ├── <font color="#3465A4"><b>pagination</b></font>
-│   │   │   └── pagination.go
-│   │   ├── response.go
-│   │   └── search.go
-│   ├── <font color="#3465A4"><b>logger</b></font>
-│   │   └── logger.go
-│   └── <font color="#3465A4"><b>routers</b></font>
-│       ├── example.go
-│       ├── index.go
-│       ├── <font color="#3465A4"><b>middleware</b></font>
-│       │   └── cors.go
-│       └── router.go
-├── README.md
-</pre>
-
 ### Lets Build an API
 
 1. [models](models) folder add a new file name `example_model.go`
