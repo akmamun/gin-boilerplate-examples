@@ -10,11 +10,10 @@ Boilerplate generated from [Gin Boilerplate](https://github.com/akmamun/gin-boil
 - [Routes](#routes)
 - [Middlewares](#middlewares)
 - [Logging](#logging)
-- [Boilerplate Structure](#boilerplate-structure)
 - [Let's Build an API](#lets-build-an-api)
-- [Useful Commands](#useful-commands)
 - [Container Development Build](#container-development-build)
 - [Container Production Build and Up](#container-production-build-and-up)
+- [Useful Commands](#useful-commands)
 - [Use Packages](#use-packages)
 
 ### Configuration Manage
