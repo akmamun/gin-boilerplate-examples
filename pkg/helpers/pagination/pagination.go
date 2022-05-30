@@ -1,81 +1,90 @@
 package pagination
 
 import (
-	"gorm.io/gorm"
 	"math"
+
+	"gorm.io/gorm"
 )
 
+// Param struct
 type Param struct {
 	DB      *gorm.DB
-	Page    int64
-	Limit   int64
-	OrderBy string
-	Search  string
+	Page    int
+	Limit   int
+	OrderBy []string
+	ShowSQL bool
 }
 
-type Result struct {
-	TotalRecord int64       `json:"total_record"`
-	TotalPage   int64       `json:"total_page"`
-	Offset      int64       `json:"offset"`
-	Limit       int64       `json:"limit"`
-	Page        int64       `json:"page"`
-	PrevPage    int64       `json:"prev_page"`
-	NextPage    int64       `json:"next_page"`
+// Pagination struct
+type Pagination struct {
+	TotalRecord int64        `json:"total_record"`
+	TotalPage   int         `json:"total_page"`
 	Data        interface{} `json:"data"`
+	Offset      int         `json:"offset"`
+	Limit       int         `json:"limit"`
+	Page        int         `json:"page"`
+	PrevPage    int         `json:"prev_page"`
+	NextPage    int         `json:"next_page"`
 }
 
-func Pagination(param *Param, resultData interface{}) *Result {
-	db := param.DB
+// Pagging func
+func Pagging(p *Param, dataSource interface{}) *Pagination {
+	db := p.DB
 
-	if param.Page < 1 {
-		param.Page = 1
+	if p.ShowSQL {
+		db = db.Debug()
 	}
-	if param.Limit == 0 {
-		param.Limit = 10
+	if p.Page < 1 {
+		p.Page = 1
+	}
+	if p.Limit == 0 {
+		p.Limit = 10
+	}
+	if len(p.OrderBy) > 0 {
+		for _, o := range p.OrderBy {
+			db = db.Order(o)
+		}
 	}
 
 	done := make(chan bool, 1)
-	var result Result
-	var count, offset int64
+	var pagination Pagination
+	var count int64
+	var offset int
 
-	go countResults(db, resultData, done, &count)
+	go countRecords(db, dataSource, done, &count)
 
-	if param.Page == 1 {
+	if p.Page == 1 {
 		offset = 0
 	} else {
-		offset = (param.Page - 1) * param.Limit
+		offset = (p.Page - 1) * p.Limit
 	}
-	db.Offset(int(offset)).
-		Limit(int(param.Limit)).
-		Order(param.OrderBy).
-		Find(resultData)
 
+	db.Limit(p.Limit).Offset(offset).Find(dataSource)
 	<-done
 
-	result.TotalRecord = count
-	result.Data = resultData
-	result.Page = param.Page
+	pagination.TotalRecord = count
+	pagination.Data = dataSource
+	pagination.Page = p.Page
 
-	result.Offset = offset
-	result.Limit = param.Limit
-	result.TotalPage = int64(math.Ceil(float64(count) / float64(param.Limit)))
+	pagination.Offset = offset
+	pagination.Limit = p.Limit
+	pagination.TotalPage = int(math.Ceil(float64(count) / float64(p.Limit)))
 
-	if param.Page > 1 {
-		result.PrevPage = param.Page - 1
+	if p.Page > 1 {
+		pagination.PrevPage = p.Page - 1
 	} else {
-		result.PrevPage = param.Page
+		pagination.PrevPage = p.Page
 	}
 
-	if param.Page == result.TotalPage {
-		result.NextPage = param.Page
+	if p.Page == pagination.TotalPage {
+		pagination.NextPage = p.Page
 	} else {
-		result.NextPage = param.Page + 1
+		pagination.NextPage = p.Page + 1
 	}
-	return &result
+	return &pagination
 }
 
-// count through separate channel
-func countResults(db *gorm.DB, anyType interface{}, done chan bool, count *int64) {
-	db.Model(anyType).Count(count)
+func countRecords(db *gorm.DB, countDataSource interface{}, done chan bool, count *int64) {
+	db.Model(countDataSource).Count(count)
 	done <- true
 }

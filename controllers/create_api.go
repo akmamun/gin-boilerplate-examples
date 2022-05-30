@@ -24,3 +24,10 @@ func (base *Controller) CreateExample(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, &example)
 }
+
+func (base *Controller) GetExampleData(ctx *gin.Context) {
+	var examples []models.Example
+	base.DB.Find(&examples)
+	ctx.JSON(http.StatusOK, gin.H{"data": examples})
+
+}

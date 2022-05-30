@@ -1,10 +1,12 @@
 package controllers
 
 import (
-	examples "github.com/akmamun/gin-boilerplate-examples/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+
+	examples "github.com/akmamun/gin-boilerplate-examples/models"
+	"github.com/akmamun/gin-boilerplate-examples/pkg/helpers/pagination"
+	"github.com/gin-gonic/gin"
 )
 
 type CreditCardData struct {
@@ -14,8 +16,15 @@ type CreditCardData struct {
 //GetHasManyRelationUserData fetch user data with preload
 func (base *Controller) GetHasManyRelationUserData(ctx *gin.Context) {
 	var user []examples.User
-	base.DB.Preload("CreditCards").Find(&user)
-	ctx.JSON(http.StatusOK, &user)
+	// ctx.JSON(http.StatusOK, &user)
+	// db :=base.DB.Preload("CreditCards").Find(&user)
+	paginate := pagination.Pagging(&pagination.Param{
+		DB:    base.DB,
+		Page:  1,
+		Limit: 3,
+	}, &user)
+
+	ctx.JSON(http.StatusOK, &paginate)
 
 }
 
@@ -40,3 +49,4 @@ func (base *Controller) GetUserDetails(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, user)
 }
+
