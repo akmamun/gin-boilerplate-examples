@@ -19,7 +19,7 @@ func (base *Controller) GetHasManyRelationUserData(ctx *gin.Context) {
 	// ctx.JSON(http.StatusOK, &user)
 	// db :=base.DB.Preload("CreditCards").Find(&user)
 	paginate := pagination.Pagging(&pagination.Param{
-		DB:    base.DB,
+		//DB:    base.DB,
 		Page:  1,
 		Limit: 3,
 	}, &user)
@@ -49,4 +49,3 @@ func (base *Controller) GetUserDetails(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, user)
 }
-

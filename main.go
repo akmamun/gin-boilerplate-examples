@@ -26,8 +26,7 @@ func main() {
 		logger.Fatalf("database DbConnection error: %s", err)
 	}
 
-	db := database.GetDB()
-	router := routers.Routes(db)
+	router := routers.Routes()
 
 	logger.Fatalf("%v", router.Run(config.ServerConfig()))
 

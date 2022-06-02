@@ -5,6 +5,5 @@ import (
 )
 
 type Controller struct {
-	//rep repository.Repository
 	DB *gorm.DB
 }
