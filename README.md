@@ -1,5 +1,7 @@
 # Go Boilerplate
 An API boilerplate written in Golang with Gin Framework and Gorm
+### Motivation
+Write restful API with fast development and developer friendly
 
 ## Table of Contents
 - [Motivation](#motivation)
@@ -21,9 +23,6 @@ An API boilerplate written in Golang with Gin Framework and Gorm
 - [Useful Commands](#useful-commands)
 - [ENV YAML Configure](#env-yaml-configure)
 - [Use Packages](#use-packages)
-
-### Motivation
-Write restful API with fast development and developer friendly
 
 ### Configuration Manage
 #### ENV Manage
