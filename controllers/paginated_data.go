@@ -1,27 +1,25 @@
 package controllers
 
 import (
+	"github.com/akmamun/gin-boilerplate-examples/infra/database"
 	"github.com/akmamun/gin-boilerplate-examples/models"
-	"github.com/akmamun/gin-boilerplate-examples/pkg/helpers/pagination"
+	"github.com/akmamun/gorm-pagination/pagination"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 )
 
-func (base *Controller) GetPaginatedData(ctx *gin.Context) {
+func (ctrl *ExampleController) GetExamplePaginated(ctx *gin.Context) {
 	var example []models.Example
 
-	page, _ := strconv.Atoi(ctx.DefaultQuery("page", "1"))
-	limit, _ := strconv.Atoi(ctx.DefaultQuery("limit", "0"))
-	query := ctx.DefaultQuery("query", "")
+	limit, _ := strconv.Atoi(ctx.GetString("limit"))
+	offset, _ := strconv.Atoi(ctx.GetString("offset"))
 
-	//db := base.DB.Where("")
-	paginateData := pagination.Pagination(&pagination.Param{
-		DB:    base.DB, //db
-		Page:  int64(page),
-		Limit: int64(limit),
-		//OrderBy: "id desc",
-		Search: query,
+	paginateData := pagination.Paginate(&pagination.Param{
+		DB:      database.DB,
+		Offset:  int64(offset),
+		Limit:   int64(limit),
+		OrderBy: "id desc",
 	}, &example)
 
 	ctx.JSON(http.StatusOK, paginateData)

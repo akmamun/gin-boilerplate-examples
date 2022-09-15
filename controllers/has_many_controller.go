@@ -1,10 +1,13 @@
 package controllers
 
 import (
-	examples "github.com/akmamun/gin-boilerplate-examples/models"
-	"github.com/gin-gonic/gin"
+	"github.com/akmamun/gin-boilerplate-examples/infra/database"
+	"github.com/akmamun/gorm-pagination/pagination"
 	"net/http"
 	"strconv"
+
+	examples "github.com/akmamun/gin-boilerplate-examples/models"
+	"github.com/gin-gonic/gin"
 )
 
 type CreditCardData struct {
@@ -12,27 +15,36 @@ type CreditCardData struct {
 }
 
 //GetHasManyRelationUserData fetch user data with preload
-func (base *Controller) GetHasManyRelationUserData(ctx *gin.Context) {
+func (ctrl *ExampleController) GetHasManyRelationUserData(ctx *gin.Context) {
 	var user []examples.User
-	base.DB.Preload("CreditCards").Find(&user)
-	ctx.JSON(http.StatusOK, &user)
+	// ctx.JSON(http.StatusOK, &user)
+	// db :=base.DB.Preload("CreditCards").Find(&user)
+	limit, _ := strconv.Atoi(ctx.GetString("limit"))
+	offset, _ := strconv.Atoi(ctx.GetString("offset"))
+
+	paginate := pagination.Paginate(&pagination.Param{
+		DB:     database.DB,
+		Limit:  int64(limit),
+		Offset: int64(offset),
+	}, &user)
+
+	ctx.JSON(http.StatusOK, &paginate)
 
 }
 
 //GetHasManyRelationCreditCardData fetch credit-card data with preload
-func (base *Controller) GetHasManyRelationCreditCardData(ctx *gin.Context) {
+func (ctrl *ExampleController) GetHasManyRelationCreditCardData(ctx *gin.Context) {
 	var creditCards []examples.CreditCard
-	base.DB.Find(&creditCards)
+	database.DB.Find(&creditCards)
 	ctx.JSON(http.StatusOK, &creditCards)
 
 }
 
 // GetUserDetails based on user_id
-func (base *Controller) GetUserDetails(ctx *gin.Context) {
+func (ctrl *ExampleController) GetUserDetails(ctx *gin.Context) {
 	var user []examples.User
 	userId, _ := strconv.Atoi(ctx.DefaultQuery("user_id", ""))
-
-	err := base.DB.Preload("CreditCards").First(&user, userId).Error
+	err := database.DB.Preload("CreditCards").First(&user, userId).Error
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"user_id": "Enter valid user"})
 		return

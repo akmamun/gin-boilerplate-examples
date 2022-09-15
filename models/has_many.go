@@ -1,5 +1,7 @@
 package models
 
+import "gorm.io/gorm"
+
 // User has many CreditCards, UserID is the foreign key
 type User struct {
 	ID          uint         `json:"id" gorm:"primary_key"`
@@ -8,6 +10,8 @@ type User struct {
 }
 
 type CreditCard struct {
+	gorm.Model
+
 	ID     uint   `json:"id" gorm:"primary_key"`
 	Number string `json:"number"`
 	UserID uint   `json:"user_id"`

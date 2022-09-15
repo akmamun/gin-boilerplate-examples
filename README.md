@@ -56,7 +56,7 @@ REPLICA_SSL_MODE=disable
 ```
 - Server `DEBUG` set `False` in Production
 - Database Logger `MASTER_DB_LOG_MODE` and `REPLICA_DB_LOG_MODE`  set `False` in production
-- If ENV Manage from YAML file add a config.yml file and configuration [db.go](pkg/config/db.go) and [server.go](pkg/config/server.go). See More [ENV YAML Configure](#env-yaml-configure)
+- If ENV Manage from YAML file add a config.yml file and configuration [db.go](config/db.go) and [server.go](config/server.go). See More [ENV YAML Configure](#env-yaml-configure)
 
 #### Server Configuration
 - Use [Gin](https://github.com/gin-gonic/gin) Web Framework
@@ -263,7 +263,7 @@ server:
   request:
     timeout: 100
 ```
-- [Server Config](pkg/config/server.go)
+- [Server Config](config/server.go)
 ```go
 func ServerConfig() string {
 viper.SetDefault("server.host", "0.0.0.0")
@@ -272,7 +272,7 @@ appServer := fmt.Sprintf("%s:%s", viper.GetString("server.host"), viper.GetStrin
 return appServer
 }
 ```
-- [DB Config](pkg/config/db.go)
+- [DB Config](config/db.go)
 ```go
 func DbConfiguration() string {
 	
