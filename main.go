@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/akmamun/gin-boilerplate-examples/pkg/config"
-	"github.com/akmamun/gin-boilerplate-examples/pkg/database"
-	"github.com/akmamun/gin-boilerplate-examples/pkg/logger"
+	"github.com/akmamun/gin-boilerplate-examples/config"
+	"github.com/akmamun/gin-boilerplate-examples/infra/database"
+	"github.com/akmamun/gin-boilerplate-examples/infra/logger"
 	"github.com/akmamun/gin-boilerplate-examples/routers"
 	"github.com/spf13/viper"
 	"time"
@@ -12,17 +12,15 @@ import (
 func main() {
 	//set timezone
 	viper.SetDefault("SERVER_TIMEZONE", "Asia/Dhaka")
-	loc, err := time.LoadLocation(viper.GetString("SERVER_TIMEZONE"))
-	if err != nil {
-		logger.Fatalf("set timezone of application: %s", err)
-	}
+	loc, _ := time.LoadLocation(viper.GetString("SERVER_TIMEZONE"))
 	time.Local = loc
 
 	if err := config.SetupConfig(); err != nil {
 		logger.Fatalf("config SetupConfig() error: %s", err)
 	}
+	masterDSN, replicaDSN := config.DbConfiguration()
 
-	if err := database.Connection(); err != nil {
+	if err := database.DBConnection(masterDSN, replicaDSN); err != nil {
 		logger.Fatalf("database DbConnection error: %s", err)
 	}
 

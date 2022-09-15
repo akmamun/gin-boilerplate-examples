@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/akmamun/gin-boilerplate-examples/pkg/logger"
+	"github.com/akmamun/gin-boilerplate-examples/infra/logger"
 	"github.com/spf13/viper"
 )
 

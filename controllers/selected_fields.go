@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/akmamun/gin-boilerplate-examples/infra/database"
 	"github.com/akmamun/gin-boilerplate-examples/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -12,9 +13,9 @@ type SelectedFiledFetch struct {
 	Title string `json:"title"`
 }
 
-func (base *Controller) GetSelectedFieldData(ctx *gin.Context) {
+func (ctrl *ExampleController) GetSelectedFieldData(ctx *gin.Context) {
 	var selectData []SelectedFiledFetch
-	base.DB.Model(&models.Article{}).Find(&selectData)
+	database.DB.Model(&models.Article{}).Find(&selectData)
 	ctx.JSON(http.StatusOK, selectData)
 
 }

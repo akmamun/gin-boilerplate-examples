@@ -1,13 +1,16 @@
 package controllers
 
 import (
+	"github.com/akmamun/gin-boilerplate-examples/infra/database"
+	"github.com/akmamun/gin-boilerplate-examples/infra/logger"
 	"github.com/akmamun/gin-boilerplate-examples/models"
-	"github.com/akmamun/gin-boilerplate-examples/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func (base *Controller) CreateExample(ctx *gin.Context) {
+type ExampleController struct{}
+
+func (ctrl *ExampleController) CreateExample(ctx *gin.Context) {
 	example := new(models.Example)
 
 	err := ctx.ShouldBindJSON(&example)
@@ -16,7 +19,7 @@ func (base *Controller) CreateExample(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	err = base.DB.Create(&example).Error
+	err = database.DB.Create(&example).Error
 	if err != nil {
 		logger.Errorf("error: %v", err)
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -25,9 +28,9 @@ func (base *Controller) CreateExample(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, &example)
 }
 
-func (base *Controller) GetExampleData(ctx *gin.Context) {
+func (ctrl *ExampleController) GetExampleData(ctx *gin.Context) {
 	var examples []models.Example
-	base.DB.Find(&examples)
+	database.DB.Find(&examples)
 	ctx.JSON(http.StatusOK, gin.H{"data": examples})
 
 }
