@@ -3,6 +3,7 @@ module github.com/akmamun/gin-boilerplate-examples
 go 1.17
 
 require (
+	github.com/akmamun/gorm-pagination/pagination v0.0.0-20220914180003-5c14e6bc1f0a
 	github.com/gin-gonic/gin v1.7.7
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.10.1
@@ -12,7 +13,6 @@ require (
 )
 
 require (
-	github.com/akmamun/gorm-pagination/pagination v0.0.0-20220914180003-5c14e6bc1f0a // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
@@ -46,7 +46,7 @@ require (
 	github.com/subosito/gotenv v1.2.0 // indirect
 	github.com/ugorji/go/codec v1.2.6 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
-	golang.org/x/sys v0.0.0-20220307203707-22a9840ba4d7 // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.66.2 // indirect
